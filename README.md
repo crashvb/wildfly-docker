@@ -34,9 +34,10 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/10wildfly` and p
 
 ### Exposed Ports
 
+Note: The Web Managment Console port (`9990`) is not automatically exposed for security reasons.
+
 * `8080/tcp` - The default port for deployed web applications.
 * `8443/tcp` - SSL-encrypted connection between deployed web applications and clients.
-* `9990/tcp` - The Web Management Console port.
 
 ### Volumes
 
