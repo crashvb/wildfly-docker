@@ -17,6 +17,6 @@ if [[ ! -e $EP_RUN ]] ; then
 	fi
 
 	log "Creating admin user ..."
-	$WILDFLY_HOME/bin/add-user.sh admin $WILDFLY_PASSWORD
+	su --command="$WILDFLY_HOME/bin/add-user.sh admin $WILDFLY_PASSWORD" --preserve-environment wildfly
 fi
 

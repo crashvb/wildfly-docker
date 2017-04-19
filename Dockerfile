@@ -12,6 +12,11 @@ RUN docker-apt default-jdk-headless && \
 RUN useradd --comment="Wildfly Daemon" --home=${WILDFLY_HOME} --shell=/bin/bash wildfly && \
 	chown --recursive wildfly:wildfly ${WILDFLY_HOME}
 
+# Bug Fix: Recreate default wildfly.sasl.local-user.challenge-path location ...
+RUN rm --force --recursive ${WILDFLY_HOME}/domain/tmp/auth ${WILDFLY_HOME}/standalone/tmp/auth && \
+	install --directory --group=wildfly --mode=0700 --owner=wildfly ${WILDFLY_HOME}/domain/tmp/auth && \
+	install --directory --group=wildfly --mode=0700 --owner=wildfly ${WILDFLY_HOME}/standalone/tmp/auth
+
 # Configure: supervisor
 ADD supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
 
