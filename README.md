@@ -14,7 +14,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/10wildfly` and p
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
- | WILDFLY_PASSWORD | _random_ | The wildflly `admin` password. |
+ | WILDFLY_PASSWORD | _random_ | The wildfly `admin` password. |
 
 ## Standard Configuration
 
@@ -24,7 +24,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/10wildfly` and p
 /
 ├─ etc/
 │  └─ entrypoint.d/
-│     └─ wildfly
+│     └─ 10wildfly
 ├─ root/
 │  └─ wildfly_password
 └─ usr/

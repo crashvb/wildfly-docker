@@ -1,8 +1,8 @@
 FROM crashvb/supervisord:latest
-MAINTAINER Richard Davis <crashvb@gmail.com>
+LABEL maintainer "Richard Davis <crashvb@gmail.com>"
 
 # Install packages, download files ...
-ENV WILDFLY_HOME=/usr/share/wildfly WILDFLY_VERSION=10.1.0.Final
+ENV WILDFLY_HOME=/usr/share/wildfly WILDFLY_VERSION=13.0.0.Final
 RUN docker-apt default-jdk-headless && \
 	mkdir --parents ${WILDFLY_HOME} && \
 	wget --quiet --output-document=- http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz | \
@@ -11,11 +11,6 @@ RUN docker-apt default-jdk-headless && \
 # Configure: wildfly
 RUN useradd --comment="Wildfly Daemon" --home=${WILDFLY_HOME} --shell=/bin/bash wildfly && \
 	chown --recursive wildfly:wildfly ${WILDFLY_HOME}
-
-# Bug Fix: Recreate default wildfly.sasl.local-user.challenge-path location ...
-RUN rm --force --recursive ${WILDFLY_HOME}/domain/tmp/auth ${WILDFLY_HOME}/standalone/tmp/auth && \
-	install --directory --group=wildfly --mode=0700 --owner=wildfly ${WILDFLY_HOME}/domain/tmp/auth && \
-	install --directory --group=wildfly --mode=0700 --owner=wildfly ${WILDFLY_HOME}/standalone/tmp/auth
 
 # Configure: supervisor
 ADD supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
