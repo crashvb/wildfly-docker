@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+# Configure: wildfly
+if [[ ! -e $EP_RUN ]] ; then
+	log "Configuring $(basename $0) for first run ..."
+
+	if [[ -f /run/secrets/wildfly_password ]] ; then
+		log "Importing WILDFLY_PASSWORD from secrets file ..."
+		WILDFLY_PASSWORD=$(cat /run/secrets/wildfly_password)
+	elif [[ -n "$WILDFLY_PASSWORD" ]] ; then
+		log "Importing WILDFLY_PASSWORD from environment variable ..."
+	else
+		log "Generating WILDFLY_PASSWORD ..."
+		export WILDFLY_PASSWORD=$(pwgen --capitalize --numerals --secure -1 32)
+		install --mode=0400 /dev/null /root/wildfly_password
+		echo "WILDFLY_PASSWORD=$WILDFLY_PASSWORD" > /root/wildfly_password
+	fi
+
+	log "Creating admin user ..."
+	su --command="$WILDFLY_HOME/bin/add-user.sh admin $WILDFLY_PASSWORD" --preserve-environment wildfly
+fi
+
