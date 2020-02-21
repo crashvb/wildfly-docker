@@ -3,6 +3,7 @@ LABEL maintainer "Richard Davis <crashvb@gmail.com>"
 
 # Install packages, download files ...
 ENV WILDFLY_HOME=/usr/share/wildfly WILDFLY_VERSION=17.0.1.Final
+ENV JBOSS_HOME=${WILDFLY_HOME}
 # Note: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN mkdir --parents ${WILDFLY_HOME} /usr/share/man/man1 && \
 	docker-apt openjdk-11-jdk-headless && \
