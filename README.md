@@ -1,5 +1,10 @@
 # wildfly-docker
 
+[![version)](https://img.shields.io/docker/v/crashvb/wildfly/18)](https://hub.docker.com/repository/docker/crashvb/wildfly)
+[![image size](https://img.shields.io/docker/image-size/crashvb/wildfly/18)](https://hub.docker.com/repository/docker/crashvb/wildfly)
+[![linting](https://img.shields.io/badge/linting-hadolint-yellow)](https://github.com/hadolint/hadolint)
+[![license](https://img.shields.io/github/license/crashvb/wildfly-docker.svg)](https://github.com/crashvb/wildfly-docker/blob/master/LICENSE.md)
+
 ## Overview
 
 This docker image contains [WildFly](https://wildfly.org/).
@@ -14,7 +19,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/10wildfly` and p
 
  | Variable | Default Value | Description |
  | ---------| ------------- | ----------- |
- | WILDFLY_PASSWORD | _random_ | The wildfly `admin` password. |
+ | WILDFLY\_PASSWORD | _random_ | The wildfly `admin` password. |
 
 ## Standard Configuration
 

@@ -1,5 +1,17 @@
-FROM crashvb/supervisord:202002211640
-LABEL maintainer "Richard Davis <crashvb@gmail.com>"
+FROM crashvb/supervisord:202201080446@sha256:8fe6a411bea68df4b4c6c611db63c22f32c4a455254fa322f381d72340ea7226
+ARG org_opencontainers_image_created=undefined
+ARG org_opencontainers_image_revision=undefined
+LABEL \
+	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
+	org.opencontainers.image.base.digest="sha256:8fe6a411bea68df4b4c6c611db63c22f32c4a455254fa322f381d72340ea7226" \
+	org.opencontainers.image.base.name="crashvb/supervisord:202201080446" \
+	org.opencontainers.image.created="${org_opencontainers_image_created}" \
+	org.opencontainers.image.description="Image containing wildfly." \
+	org.opencontainers.image.licenses="Apache-2.0" \
+	org.opencontainers.image.source="https://github.com/crashvb/wildfly-docker" \
+	org.opencontainers.image.revision="${org_opencontainers_image_revision}" \
+	org.opencontainers.image.title="crashvb/wildfly" \
+	org.opencontainers.image.url="https://github.com/crashvb/wildfly-docker"
 
 # Install packages, download files ...
 ENV WILDFLY_HOME=/usr/share/wildfly WILDFLY_VERSION=15.0.1.Final
@@ -16,9 +28,9 @@ RUN useradd --comment="Wildfly Daemon" --home=${WILDFLY_HOME} --shell=/bin/bash 
 	chown --recursive wildfly:wildfly ${WILDFLY_HOME}
 
 # Configure: supervisor
-ADD supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
+COPY supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
 
 # Configure: entrypoint
-ADD entrypoint.wildfly /etc/entrypoint.d/10wildfly
+COPY entrypoint.wildfly /etc/entrypoint.d/10wildfly
 
 EXPOSE 8080/tcp 8443/tcp

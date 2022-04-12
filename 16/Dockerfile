@@ -28,9 +28,9 @@ RUN useradd --comment="Wildfly Daemon" --home=${WILDFLY_HOME} --shell=/bin/bash 
 	chown --recursive wildfly:wildfly ${WILDFLY_HOME}
 
 # Configure: supervisor
-ADD supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
+COPY supervisord.wildfly.conf /etc/supervisor/conf.d/wildfly.conf
 
 # Configure: entrypoint
-ADD entrypoint.wildfly /etc/entrypoint.d/10wildfly
+COPY entrypoint.wildfly /etc/entrypoint.d/10wildfly
 
 EXPOSE 8080/tcp 8443/tcp
