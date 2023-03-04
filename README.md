@@ -28,10 +28,16 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/10wildfly` and p
 ```
 /
 ├─ etc/
-│  └─ entrypoint.d/
-│     └─ 10wildfly
-├─ root/
-│  └─ wildfly_password
+│  ├─ entrypoint.d/
+│  │  └─ wildfly
+│  ├─ healthcheck.d/
+│  │  └─ wildfly
+│  └─ supervisor/
+│     └─ config.d/
+│        └─ wildfly.conf
+├─ run/
+│  └─ secrets/
+│     └─ wildfly_password
 └─ usr/
    └─ share/
       └─ wildfly/

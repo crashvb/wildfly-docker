@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+# Configure: wildfly
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
+
+	# Generate passwords ...
+	generate_password wildfly
+
+	log "Creating admin user ..."
+	su --command="${WILDFLY_HOME}/bin/add-user.sh admin ${WILDFLY_PASSWORD}" --preserve-environment wildfly
+fi
+
